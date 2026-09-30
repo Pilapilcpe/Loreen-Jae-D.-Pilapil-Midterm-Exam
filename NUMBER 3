@@ -1,0 +1,59 @@
+import sys
+from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QLabel, QLineEdit, QMessageBox
+from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtCore import pyqtSlot
+
+
+class App(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.title= "Midterm in OOP"
+        self.x= 200
+        self.y= 200
+        self.width= 750
+        self.height= 380
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.x, self.y, self.width, self.height)
+        self.setWindowIcon(QIcon('pythonico.ico'))
+
+        entry_font=QFont("Arial", 14)
+
+        self.label= QLabel("Enter your fullname:", self)
+        self.label.setStyleSheet("color: red;")
+        self.label.move(65, 130)
+
+        self.entry= QLineEdit(self)
+        self.entry.setFont(entry_font)
+        self.entry.setGeometry(375, 120, 315, 42)
+
+        self.button= QPushButton("Click to display your Fullname", self)
+        self.button.setStyleSheet("color: red;")
+        self.button.setGeometry(65, 190, 215, 30)
+        self.button.clicked.connect(self.buttonReply)
+
+        self.output= QLineEdit(self)
+        self.output.setFont(entry_font)
+        self.output.setReadOnly(True)
+        self.output.setGeometry(375, 182, 315, 42)
+
+        self.show()
+
+    @pyqtSlot()
+    def buttonReply(self):
+        fullname = self.entry.text().strip()
+        if fullname == "":
+            QMessageBox.warning(self,"Invalid","Please enter your fullname.",QMessageBox.Ok,QMessageBox.Ok
+            )
+        else:
+            self.output.setText(fullname)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = App()
+    sys.exit(app.exec_())
