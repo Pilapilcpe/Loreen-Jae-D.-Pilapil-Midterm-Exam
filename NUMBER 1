@@ -19,7 +19,6 @@ def main():
         def conversion(self):
             return self._temp - 273.15
 
-    # Celsius to other scales
     tempInCelsius = float(input("Enter the temperature in Celsius: "))
     convert = CelsiusToKelvin(tempInCelsius)
     print(str(convert.conversion()) + " Kelvin")
